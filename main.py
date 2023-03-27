@@ -8,6 +8,9 @@ turtle.hideturtle()
 turtle.penup()
 game_on = True
 data = pd.read_csv("50_states.csv")
+missed_states = []
+for state in data["state"]:
+    missed_states.append(state)
 wrong_answers = 0
 correct_answers = 0
 while game_on:
@@ -25,6 +28,7 @@ while game_on:
         answer = screen.textinput(f"{correct_answers}/50 Correct", "Name all the States")
     for state in data["state"]:
         if answer.lower() == state.lower():
+            missed_states.remove(state)
             print(state)
             answer_state = data[data.state == state]
             x = answer_state["x"]
@@ -36,4 +40,6 @@ while game_on:
     if not answer_found:
         wrong_answers += 1
 
+missed_states_df = pd.DataFrame(missed_states)
+missed_states_df.to_csv("Missed_States.csv")
 screen.exitonclick()
