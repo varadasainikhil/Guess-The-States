@@ -33,7 +33,7 @@ while game_on:
             turtle.write(str(state), True, align="center")
             correct_answers += 1
             answer_found = True
-    if answer_found == False:
+    if not answer_found:
         wrong_answers += 1
 
 screen.exitonclick()
